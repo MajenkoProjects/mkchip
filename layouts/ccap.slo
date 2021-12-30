@@ -1,0 +1,12 @@
+[image]
+w = 320
+h = 256
+background = #ffffff
+
+[line1]
+y = 200
+x = 0
+color = #000000
+font=NotoSans-Regular.ttf
+size=120
+align=center

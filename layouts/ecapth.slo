@@ -1,0 +1,48 @@
+[image]
+w = 1024
+h = 1024
+background = #000000
+
+[line1]
+align = center
+x = 800
+y = 0 
+color = #aaaaaa
+font=texgyrechorus-mediumitalic.otf
+size=100
+rotate=270
+
+[line2]
+align = center
+x = 600
+y = 0
+color = #aaaaaa
+font=Arimo-Regular.ttf
+size=100
+rotate=270
+
+[line3]
+align = center
+x = 400 
+y = 0
+color = #aaaaaa
+font=Arimo-Regular.ttf
+size=100
+rotate=270
+
+[polygons]
+polygon[]=#aaaaaa, 0,0, 300,0, 300,1024, 0,1024
+
+polygon[]=#000000, 100,50, 200,50, 200,250, 100,250
+polygon[]=#aaaaaa, 110,60, 190,60, 190,240, 110,240
+
+polygon[]=#000000, 100,350, 200,350, 200,550, 100,550
+polygon[]=#aaaaaa, 110,360, 190,360, 190,540, 110,540
+
+polygon[]=#000000, 100,650, 200,650, 200,850, 100,850
+polygon[]=#aaaaaa, 110,660, 190,660, 190,840, 110,840
+
+polygon[]=#000000, 100, 950, 200, 950, 200,1150, 100,1150
+polygon[]=#aaaaaa, 110, 960, 190, 960, 190,1140, 110,1140
+
+

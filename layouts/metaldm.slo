@@ -1,0 +1,25 @@
+[image]
+w = 256
+h = 256
+background = transparent
+
+[line1]
+x = 50
+y = 100
+color = #333333
+font=C64_TrueType_v1.2-STYLE/fonts/C64_Pro_Mono-STYLE.ttf
+size=64
+
+[line2]
+x = 50
+y = 200
+color = #333333
+font=C64_TrueType_v1.2-STYLE/fonts/C64_Pro_Mono-STYLE.ttf
+size=64
+
+[line3]
+x = 180
+y = 920
+color = #333333
+font=C64_TrueType_v1.2-STYLE/fonts/C64_Pro_Mono-STYLE.ttf
+size=64

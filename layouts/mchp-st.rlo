@@ -1,0 +1,39 @@
+[image]
+w = 768
+h = 512
+background = #000000
+
+[dot]
+x = 100
+y = 100
+r = 50
+color = #aaaaaa
+
+[logo]
+x = 150
+y = 250
+scale = 0.5
+file = share/mkchip/logos/mchp.png
+alpha = 60
+
+[line1]
+x = 350
+y = 180
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+
+[line2]
+x = 350
+y = 300
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+
+[line3]
+x = 350
+y = 420
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+

@@ -1,0 +1,29 @@
+[image]
+w = 1024
+h = 1024
+background = #FFFFFF
+
+[line1]
+y = 300
+x = 100
+color = #222222
+font=NotoSans-Regular.ttf
+size=200
+align=left
+
+[line2]
+y = 600
+x = 100
+color = #222222
+font=NotoSans-Regular.ttf
+size=200
+align=left
+
+[line3]
+y = 900
+x = 100
+color = #222222
+font=NotoSans-Regular.ttf
+size=200
+align=left
+

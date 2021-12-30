@@ -1,0 +1,35 @@
+
+[image]
+w = 1024
+h = 768
+background = #000000
+
+[dot]
+x = 100
+y = 668
+r = 50
+color = #aaaaaa
+
+[line1]
+align = right
+x = 100
+y = 250
+color = #aaaaaa
+font = fonts-beng-extra/mitra.ttf
+size = 180
+
+[line2]
+align = right
+x = 100
+y = 450
+color = #aaaaaa
+font = fonts-beng-extra/mitra.ttf
+size = 180
+
+[line3]
+align = right
+x = 100
+y = 650
+color = #aaaaaa
+font = fonts-beng-extra/mitra.ttf
+size = 180

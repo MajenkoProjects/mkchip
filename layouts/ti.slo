@@ -1,0 +1,32 @@
+[image]
+w = 1024
+h = 1024
+background = #000000
+
+[logo]
+x = 100
+y = 100
+file = share/mkchip/logos/ti256.png
+alpha = 60
+
+[line1]
+x = 400
+y = 300
+color = #aaaaaa
+font=croscore/Cousine-Bold.ttf
+size=200
+
+[line2]
+x = 100
+y = 600
+color = #aaaaaa
+font=croscore/Cousine-Bold.ttf
+size=200
+
+[line3]
+x = 100
+y = 900
+color = #aaaaaa
+font=croscore/Cousine-Bold.ttf
+size=200
+

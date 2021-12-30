@@ -1,0 +1,28 @@
+[image]
+w = 256
+h = 512
+background = #000000
+
+[line1]
+x = 0
+y = 100
+align=center
+color = #aaaaaa
+font=NotoSans-Regular.ttf
+size=100
+
+[line2]
+x = 0
+y = 200
+align=center
+color = #aaaaaa
+font=NotoSans-Regular.ttf
+size = 100
+
+[line3]
+x = 0
+y = 300
+align=center
+color = #aaaaaa
+font=NotoSans-Regular.ttf
+size = 100

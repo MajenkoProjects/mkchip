@@ -1,0 +1,29 @@
+[image]
+w = 768 
+h = 512
+background = #FFF319
+
+[line1]
+x = 0
+y = 220
+align=center
+color = #FF9519
+font=DejaVuSans.ttf
+size=120
+
+[line2]
+x = 0
+y = 400
+align=center
+color = #FF9519
+font=DejaVuSans.ttf
+size=120
+
+[line3]
+x = 0
+y = 380
+align=center
+color = #FF9519
+font=DejaVuSans.ttf
+size=100
+

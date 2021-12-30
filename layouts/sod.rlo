@@ -1,0 +1,30 @@
+[image]
+w = 512
+h = 384
+background = #000000
+
+[line1]
+x = 40
+y = 280
+align=left
+color = #aaaaaa
+font=MonospaceTypewriter.ttf
+size=180
+
+[line2]
+x = 460
+y = 280
+align=left
+color = #aaaaaa
+font=MonospaceTypewriter.ttf
+size=100
+rotate=90
+
+[line3]
+x = 0
+y = 200
+align=center
+color = #aaaaaa
+font=MonospaceTypewriter.ttf
+size=128
+

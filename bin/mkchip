@@ -1,0 +1,303 @@
+#!/usr/bin/php
+<?php
+
+$home = getenv("HOME");
+$fonts = loadFonts();
+
+$args = getopt("srl:a:b:c:d:o:");
+
+if (!array_key_exists("l", $args)) {
+    print "Error: layout not specified (-l).\n";
+    exit(10);
+}
+
+if (!array_key_exists("s", $args) && !array_key_exists("r", $args)) {
+    print "Error: shape not specified (-r or -s).\n";
+    exit(10);
+}
+
+if (!array_key_exists("o", $args)) {
+    print "Error: output not specified (-o).\n";
+    exit(10);
+}
+
+if (array_key_exists("s", $args)) {
+    $layfile = findFile("share/mkchip/layouts/" . $args['l'] . ".slo");
+} else if (array_key_exists("r", $args)) {
+    $layfile = findFile("share/mkchip/layouts/" . $args['l'] . ".rlo");
+}
+if ($layfile === false) {
+    print "Error: Layout " . $args['l'] . " not found.\n";
+    exit(10);
+}
+
+$lay = parse_ini_file($layfile, true);
+
+$img = ImageCreateTruecolor($lay['image']['w'], $lay['image']['h']);
+
+if (!$img) {
+    print "Error: Unable to create image\n";
+    exit(10);
+}
+
+
+
+$a = 0;
+if (substr($lay['image']['background'], 0, 1) == "#") {
+    list($r, $g, $b) = sscanf($lay['image']['background'], "#%02x%02x%02x");
+} else {
+    if ($lay['image']['background'] == "transparent") {
+        $a = 127;
+    }
+    $r = 0;
+    $g = 0;
+    $b = 0;
+}
+ImageAlphaBlending($img, true); // Here was false
+ImageSaveAlpha($img, true);
+$black = ImageColorAllocateAlpha($img, $r, $g, $b, $a);
+ImageFilledRectangle($img, 0, 0, ImageSX($img), ImageSY($img), $black);
+
+if (array_key_exists("logo", $lay)) {
+    if (array_key_exists("file", $lay['logo'])) {
+
+        $logofile = findFile($lay['logo']['file']);
+        $logo = ImageCreateFromPNG($logofile);
+
+        $alpha = 100;
+        if (array_key_exists("alpha", $lay['logo'])) {
+            $alpha = $lay['logo']['alpha'];
+        }
+
+        $x = $lay['logo']['x'];
+        if (array_key_exists("align", $lay['logo'])) {
+            if ($lay['logo']['align'] == "center") {
+                $x = ImageSX($img)/2 - ImageSX($logo)/2 + $lay['logo']['x'];
+            } else if ($lay['logo']['align'] == "left") {
+                $x = $lay['logo']['x'];
+            } else if ($lay['logo']['align'] == "right") {
+                $x = ImageSX($img) - ImageSX($logo) - $lay['logo']['x'];
+            }
+        }
+
+        $sx = ImageSX($logo);
+        $sy = ImageSY($logo);
+
+        if (array_key_exists('scale', $lay['logo'])) {
+            $sx *= $lay['logo']['scale'];
+            $sy *= $lay['logo']['scale'];
+            $img2 = ImageCreateTrueColor($sx, $sy);
+            $black = ImageColorAllocate($img2, 0, 0, 0);
+            ImageFilledRectangle($img2, 0, 0, $sx, $sy, $black);
+            ImageCopyResampled($img2, $logo, 0, 0, 0, 0, $sx, $sy, ImageSX($logo), ImageSY($logo));
+            ImageDestroy($logo);
+            $logo = $img2;
+        }
+        ImageCopyMerge($img, $logo, $x, $lay['logo']['y'], 0, 0, ImageSX($logo), ImageSY($logo), $alpha);
+    }
+}
+
+if (array_key_exists("dot", $lay)) {
+    if (substr($lay['dot']['color'], 0, 1) == "#") {
+        list($r, $g, $b) = sscanf($lay['dot']['color'], "#%02x%02x%02x");
+    } else {
+        $r = 255;
+        $g = 255;
+        $b = 255;
+    }
+
+    $color = ImageColorAllocate($img, $r, $g, $b);
+
+    ImageFilledEllipse($img, $lay['dot']['x'], $lay['dot']['y'], $lay['dot']['r'], $lay['dot']['r'], $color);
+}
+
+if (array_key_exists("polygons", $lay)) {
+    foreach ($lay['polygons']['polygon'] as $polygon) {
+        $bits = explode(",", $polygon);
+        $color = array_shift($bits);
+        if (substr($color, 0, 1) == '#') {
+            list($r, $g, $b) = sscanf($color, "#%02x%02x%02x");
+            $c = ImageColorAllocate($img, $r, $g, $b);
+            ImageFilledPolygon($img, $bits, count($bits)/2, $c);
+        }
+    }
+}
+
+foreach ($lay as $k=>$v) {
+    if (substr($k, 0, 5) == "text.") {
+        putstr($img, $v, $v['text']);
+    }
+}
+
+if (array_key_exists("a", $args)) {
+    putstr($img, $lay['line1'], $args['a']);
+}
+if (array_key_exists("b", $args)) {
+    putstr($img, @$lay['line2'], $args['b']);
+}
+if (array_key_exists("c", $args)) {
+    putstr($img, @$lay['line3'], $args['c']);
+}
+if (array_key_exists("d", $args)) {
+    putstr($img, @$lay['line4'], $args['d']);
+}
+
+ImagePNG($img, $args['o']);
+
+function putstr($img, $inline, $text) {
+
+    global $lay;
+    global $fonts;
+
+    $line = array();
+    if (array_key_exists("default", $lay)) {
+        foreach ($lay["default"] as $k=>$v) {
+            $line[$k] = $v;
+        }
+    }
+
+    foreach ($inline as $k=>$v) {
+        $line[$k] = $v;
+    }
+
+
+
+    $x = $line['x'];
+    $y = $line['y'];
+
+//    $text = iconv('UTF-8', 'ISO-8859-1', $text);
+    $text = mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8');
+    $text = html_entity_decode($text, ENT_NOQUOTES, 'ISO-8859-1');
+
+    if (substr($line['color'], 0, 1) == "#") {
+        list($r, $g, $b) = sscanf($line['color'], "#%02x%02x%02x");
+    } else {
+        $r = 255;
+        $g = 255;
+        $b = 255;
+    }
+
+    if (array_key_exists("alpha", $line)) {
+        $color = ImageColorAllocateAlpha($img, $r, $g, $b, $line["alpha"]);
+    } else {
+        $color = ImageColorAllocate($img, $r, $g, $b);
+    }
+
+    $font = getFont($fonts, $line['font']);
+    if ($font === false) {
+        $font = findfont($line['font']);
+    }
+    $size = $line['size'];
+
+    $rot = 0;
+    if (array_key_exists("rotate", $line)) {
+        $rot = $line["rotate"];
+    }
+
+    if (@$line['align'] == "right") {
+        $bb = ImageTTFBBox($size, $rot, $font, $text);
+        $x = ImageSX($img) - $x - ($bb[2] - $bb[0]);
+    } else if (@$line['align'] == "center") {
+        $bb = ImageTTFBBox($size, $rot, $font, $text);
+        if ($rot == 90 || $rot == 270) {
+            $y = (ImageSY($img)/2) - (($bb[3] - $bb[1]) / 2) + $y;
+        } else {
+            $x = (ImageSX($img)/2) - (($bb[2] - $bb[0]) / 2) + $x;
+        }
+    }
+
+
+
+    ImageTTFText($img, $size, $rot, $x, $y, $color, $font, $text);
+}
+
+
+function findFile($f) {
+    global $home;
+
+    if (file_exists($f))                return $f;
+    if (file_exists("$home/.local/$f")) return "$home/.local/$f";
+    if (file_exists("/usr/local/$f"))   return "/usr/local/$f";
+    if (file_exists("/usr/$f"))         return "/usr/$f";
+    return false;
+}
+
+function findfont($f) {
+    global $home;
+    $fontLocations = array(
+        "$home/.fonts",
+        "/usr/share/fonts/truetype",
+        "/usr/share/texmf/fonts/opentype"
+    );
+
+    foreach ($fontLocations as $loc) {
+        $font = findFontInDir($f, $loc);
+        if ($font !== false) {
+            return $font;
+        }
+    }
+
+    return false;
+}
+
+function findFontInDir($f, $d) {
+    if (file_exists("$d/$f")) {
+        return "$d/$f";
+    }
+    $dir = opendir($d);
+    while ($fn = readdir($dir)) {
+        if (substr($fn, 0, 1) == ".") {
+            continue;
+        }
+        if (is_dir("$d/$fn")) {
+            $font = findFontInDir($f, "$d/$fn");
+            if ($font !== false) return $font;
+        }
+    }
+    closedir($dir);
+    return false;
+}
+
+function loadFonts() {
+    $fonts = `fc-list`;
+
+    $out = array();
+
+    foreach (explode("\n", $fonts) as $font) {
+        $bits = explode(":", $font);
+        if (count($bits) == 3) {
+            $file = trim($bits[0]);
+            $name = trim(explode(",", $bits[1])[0]);
+            $params = trim(explode(",", $bits[2])[0]);
+            $params = trim(explode("=", $params)[1]);
+
+            @$out[$name][$params] = $file;
+        }
+    }
+
+    return $out;
+}
+
+function getFont($fonts, $spec) {
+    $bits = explode(",", $spec);
+    $name = trim($bits[0]);
+
+    if (!array_key_exists($name, $fonts)) return false;
+
+    if (count($bits) == 2) {
+        $style = trim($bits[1]);
+        if (array_key_exists($style, $fonts[$name])) {
+            return $fonts[$name][$style];
+        }
+    }
+
+    if (array_key_exists("Regular", $fonts[$name])) {
+        return $fonts[$name]["Regular"];
+    }
+
+    if (array_key_exists("Book", $fonts[$name])) {
+        return $fonts[$name]["Book"];
+    }
+
+    return array_shift($fonts[$name]);
+}

@@ -1,0 +1,13 @@
+[image]
+w = 640
+h = 320
+background = #008000
+
+[line1]
+align = center
+x = 0
+y = 280
+color = #ffffff
+font = ttf-bitstream-vera/VeraMono.ttf
+size = 240
+

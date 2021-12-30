@@ -1,0 +1,26 @@
+[image]
+w = 2800
+h = 512
+background = #000000
+
+[default]
+font=NotoSans-Regular.ttf
+color = #ffffff
+size=80
+alpha = 60
+align=center
+x = 0 
+
+[logo]
+x=1000
+y=100
+file=share/mkchip/logos/atmel.png
+alpha=50
+scale=0.3
+
+[line1]
+y = 220 
+x = 300
+
+[line2]
+y = 400

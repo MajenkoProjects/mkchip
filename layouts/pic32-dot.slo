@@ -1,0 +1,39 @@
+[image]
+w = 1024
+h = 1024
+background = #000000
+
+[dot]
+x = 100
+y = 100
+r = 50
+color = #aaaaaa
+
+
+[logo]
+x = 200
+y = 80
+alpha=60
+file = share/mkchip/logos/pic32.png
+
+[line1]
+x = 180
+y = 720
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+
+[line2]
+x = 180
+y = 820
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+
+[line3]
+x = 180
+y = 920
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+

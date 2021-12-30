@@ -1,0 +1,29 @@
+
+[image]
+w = 1368
+h = 768
+background = #FFFFFF
+
+[line1]
+align = left
+x = 200
+y = 350
+color = #000000
+font = Minimal.ttf
+size = 180
+
+[line2]
+align = left
+x = 200
+y = 600
+color = #000000
+font = Minimal.ttf
+size = 180
+
+[line3]
+align = right
+x = 200
+y = 600
+color = #000000
+font = Minimal.ttf
+size = 180

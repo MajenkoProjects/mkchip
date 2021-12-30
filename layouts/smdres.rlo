@@ -1,0 +1,13 @@
+[image]
+w = 512
+h = 320
+background = #000000
+
+[line1]
+align = center
+x = 0
+y = 250
+color = #ffffff
+font = darkforest.ttf
+size = 180
+

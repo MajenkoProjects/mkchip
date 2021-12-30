@@ -1,0 +1,32 @@
+[image]
+w = 1024
+h = 512
+background = #000000
+
+[logo]
+x = 100
+y = 100
+file = share/mkchip/logos/mchp.png
+alpha = 60
+
+[line1]
+x = 480
+y = 180
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+
+[line2]
+x = 480
+y = 300
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+
+[line3]
+x = 480
+y = 400
+color = #aaaaaa
+font=Hack-Regular.ttf
+size=80
+

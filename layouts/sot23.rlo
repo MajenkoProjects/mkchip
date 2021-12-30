@@ -1,0 +1,29 @@
+[image]
+w = 512
+h = 256
+background = #000000
+
+[line1]
+x = 0
+y = 20
+align=center
+color = #aaaaaa
+font=MonospaceTypewriter.ttf
+size=128
+
+[line2]
+x = 0
+y = 200
+align=center
+color = #aaaaaa
+font=MonospaceTypewriter.ttf
+size=128
+
+[line3]
+x = 0
+y = 200
+align=center
+color = #aaaaaa
+font=MonospaceTypewriter.ttf
+size=128
+

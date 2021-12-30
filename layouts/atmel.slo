@@ -1,0 +1,28 @@
+[image]
+w = 1024
+h = 1024
+background = #000000
+
+[default]
+font=This side up.ttf
+color = #aa9988
+size=100
+alpha = 60
+align=center
+x = 0 
+
+[text.atmel]
+y = 250
+text=ATMEL
+
+[line1]
+y = 400 
+
+[line2]
+y = 550
+
+[line3]
+y = 700
+
+[line4]
+y = 850

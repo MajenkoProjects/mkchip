@@ -1,0 +1,19 @@
+[image]
+w = 2800
+h = 512
+background = #ffffff
+
+[default]
+font=BPdotsUnicase.otf
+color = #000000
+size=120
+alpha = 60
+align=center
+x = 0 
+
+[line1]
+y = 150 
+x = 0
+
+[line2]
+y = 300

@@ -1,0 +1,36 @@
+[image]
+w = 1024
+h = 512
+background = #000000
+
+[logo]
+x = 200
+y = 270
+alpha = 70
+file = share/mkchip/logos/st.png
+scale = 0.7
+
+[line1]
+x = 200 
+y = 200
+align=left
+color = #aaaaaa
+font=NotoSans-Regular.ttf
+size=120
+
+[line2]
+x = 500
+y = 400
+align=left
+color = #aaaaaa
+font=NotoSans-Regular.ttf
+size=120
+
+[line3]
+x = 0
+y = 380
+align=center
+color = #aaaaaa
+font=NotoSans-Regular.ttf
+size=100
+
